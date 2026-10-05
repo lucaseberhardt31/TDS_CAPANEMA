@@ -1,0 +1,65 @@
+#include <WiFi.h>
+
+const char* ssid = "Iphone_da_Nokia";
+const char* password = "Senha";
+
+WiFiServer server(80);
+const int LedPin = 2; // Pino onde o led está conectado
+
+
+void setup() {
+  Serial.begin(115200);
+  pinMode(ledPin, OUTPUT);
+  digitalWrite(ledPin, LOW); //Garante que o led comece apagado
+
+  Serial.print("Conectando a: ");
+  Serial.println(ssid);
+  WiFi.begin(ssid, password);
+
+  while(WiFi.status() != WL_CONNECTED){
+    delay(500);
+    Serial.print(".");
+  }
+
+  Serial.println("\nWiFi conectado!");
+  Serial.print("Endereço IP: ");
+  Serial.println(WiFi.localIP());
+
+  Server.begin(); // inicia o servidor web
+
+}
+void loop() {
+  WiFiClient client = server.available(); //verificar se existe um cliente conectado
+
+  if (client) {
+    String currentLine = "";
+    while (client.conected()){
+      if (client.avaliable()){
+        char c = client.read();// lê um caractere
+
+        //verifica os comandos enviados pela URL
+        if (currentLine.endsWith("GET /H")){
+          digitalWrite(ledPin, HIGH); // liga o LED
+        }
+        if (currentLine.endsWith("Get /L"){
+          digitalWrite(ledPin, LOW);//desliga o led
+        }
+
+        if(c == "\n"){
+          if(currentLine.length() == 0){
+            //Cria a página web
+            client.println("HTTP/1.1 200 OK");
+            client.println("Content-type:text/html");
+            client.println();
+            client.println("<!DOCTYPE html><head><meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">");
+            client.println("");
+            client.println("");
+            client.println("");
+            client.println("");
+            client.println("");
+            client.println("");
+          }
+        }
+      }
+    }
+  }
