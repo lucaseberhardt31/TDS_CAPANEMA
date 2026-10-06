@@ -57,7 +57,7 @@ void loop() {
             client.println("<p><a href=\"/H\"> <button style=\"background-color: #4CAF50; color: white;\"> LIGAR LED </button> </a> </p>");
             client.println("<p><a href=\"/L\"> <button style=\"background-color: #f44336; color: white;\"> DESLIGAR LED </button> </a> </p>");
             client.println("</body> </html>");
-            client.println("");
+            client.println();
           }
         }
       }
