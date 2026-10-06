@@ -58,9 +58,15 @@ void loop() {
             client.println("<p><a href=\"/L\"> <button style=\"background-color: #f44336; color: white;\"> DESLIGAR LED </button> </a> </p>");
             client.println("</body> </html>");
             client.println();
+            break;
+          }else{
+            currentLine = "";
           }
+        }else if (c != "\r"){
+          currentLine += c;
         }
       }
     }
+    client.stop();
   }
 }
